@@ -1,0 +1,48 @@
+{
+  "name": "dsh-im-bridge",
+  "version": "0.1.0",
+  "description": "QQ (OneBot v11 / NapCat) 与个人微信 (WeChatFerry) 接入 DeepSeek Harness (DSH) 的聊天桥接插件：双向文本对话 + 文件收发。",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "cordis",
+    "qq",
+    "onebot",
+    "napcat",
+    "wechat",
+    "wcferry",
+    "wechatferry",
+    "im",
+    "chatbot",
+    "bridge",
+    "文件",
+    "plugin"
+  ],
+  "license": "MIT",
+  "author": "DSH workspace",
+  "engines": {
+    "node": ">=20"
+  }
+}
