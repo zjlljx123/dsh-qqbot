@@ -93,7 +93,7 @@ DSH 会执行 `dsh plugin --profile web add <仓库地址>` 并自动注册（�
 
 ### 方式 B：手动安装（Windows，已验证）
 
-推荐把插件放到 profile 目录里（与 `dsh-usagi-pet` 同样的方式，避免 pnpm 绝对路径 `link:` 在 Windows 上生成坏链接）：
+推荐把插件放到 profile 目录里（可避免 Windows 上 pnpm 绝对路径 `link:` 生成损坏符号链接的问题）：
 
 ```powershell
 $profile = "$env:USERPROFILE\.dsh\profiles\web"
@@ -120,7 +120,7 @@ cd D:\path\to\repo
 dsh plugin --profile web add link:./dsh-qqbot
 ```
 
-> ⚠️ 注意：Windows 上 `pnpm add link:<绝对路径>` 可能生成损坏的符号链接（本机实测）。如果装完 `node_modules\dsh-qqbot` 指向不存在，请改用**方式 B**（相对 `link:./dsh-qqbot` 放在 profile 目录内）。
+> ⚠️ 注意：Windows 上 `pnpm add link:<绝对路径>` 可能生成损坏的符号链接（Windows 上实测）。如果装完 `node_modules\dsh-qqbot` 指向不存在，请改用**方式 B**（相对 `link:./dsh-qqbot` 放在 profile 目录内）。
 
 装完后刷新/重启，日志里会出现 `[dsh-qqbot]` 开头的输出。
 
