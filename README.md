@@ -33,7 +33,7 @@
 ## 工作原理
 
 ```
-QQ 用户 ──OneBot v11 WS──▶ NapCat ──▶ dsh-im-bridge (QQClient)
+QQ 用户 ──OneBot v11 WS──▶ NapCat ──▶ dsh-qqbot (QQClient)
 微信用户 ──wcf RPC TCP────▶ WeChatFerry ─▶ dsh-qqbot (WcfClient，默认关闭)
                                               │
                                     ctx.apiProxy（与 Web UI 同一套 RPC）
@@ -53,9 +53,15 @@ QQ 用户 ──OneBot v11 WS──▶ NapCat ──▶ dsh-im-bridge (QQClient)
 
 ### 方式 A：让 DSH 自己装（推荐）
 
-把本目录（或 zip）交给 DSH，对它说：
+把**插件仓库地址**（GitHub 等）交给 DSH，对它说：
 
-> 帮我安装 dsh-im-bridge 插件
+> 帮我安装这个插件：`https://github.com/<你的用户名>/dsh-qqbot`
+
+DSH 会执行 `dsh plugin --profile web add <仓库地址>` 并自动注册（已实测：安装后**聊天功能开箱即用**，只要你自己跑着 NapCat；控制台启停 NapCat 需在配置里填自己的路径，见[四、配置](#四配置)）。
+
+也可以把本目录（或 zip）交给 DSH：
+
+> 帮我安装 dsh-qqbot 插件
 
 ### 方式 B：手动安装（Windows，已验证）
 
@@ -65,12 +71,12 @@ QQ 用户 ──OneBot v11 WS──▶ NapCat ──▶ dsh-im-bridge (QQClient)
 $profile = "$env:USERPROFILE\.dsh\profiles\web"
 
 # 1. 把插件源码复制进 profile 目录
-Copy-Item D:\path\to\dsh-im-bridge $profile\dsh-im-bridge -Recurse
-Remove-Item $profile\dsh-im-bridge\node_modules -Recurse -Force -ErrorAction SilentlyContinue
+Copy-Item D:\path\to\dsh-qqbot $profile\dsh-qqbot -Recurse
+Remove-Item $profile\dsh-qqbot\node_modules -Recurse -Force -ErrorAction SilentlyContinue
 
 # 2. 在 profile 的 package.json 里加依赖 + bundle（已有内容不要删，只加这两处）
-#    dependencies:  "dsh-im-bridge": "link:./dsh-im-bridge"
-#    dsh.profile.bundles: [..., "@deepseek-ai/dsh-web-app", "dsh-im-bridge"]
+#    dependencies:  "dsh-qqbot": "link:./dsh-qqbot"
+#    dsh.profile.bundles: [..., "@deepseek-ai/dsh-web-app", "dsh-qqbot"]
 
 # 3. 在 profile 目录安装依赖
 Set-Location $profile
@@ -83,12 +89,12 @@ pnpm install
 
 ```powershell
 cd D:\path\to\repo
-dsh plugin --profile web add link:./dsh-im-bridge
+dsh plugin --profile web add link:./dsh-qqbot
 ```
 
-> ⚠️ 注意：Windows 上 `pnpm add link:<绝对路径>` 可能生成损坏的符号链接（本机实测）。如果装完 `node_modules\dsh-im-bridge` 指向不存在，请改用**方式 B**（相对 `link:./dsh-im-bridge` 放在 profile 目录内）。
+> ⚠️ 注意：Windows 上 `pnpm add link:<绝对路径>` 可能生成损坏的符号链接（本机实测）。如果装完 `node_modules\dsh-qqbot` 指向不存在，请改用**方式 B**（相对 `link:./dsh-qqbot` 放在 profile 目录内）。
 
-装完后刷新/重启，日志里会出现 `[dsh-im-bridge]` 开头的输出。
+装完后刷新/重启，日志里会出现 `[dsh-qqbot]` 开头的输出。
 
 ---
 
@@ -132,7 +138,7 @@ WeChatFerry 是 Windows 下通过 DLL 注入 PC 微信实现收发消息的免�
 插件默认配置见插件内 [`cordis.patch.yml`](cordis.patch.yml)。要修改，把整个 `config:` 块复制到你 profile 的 `cordis.patch.yml`（`C:\Users\<你>\.dsh\profiles\web\cordis.patch.yml`）里再改（profile 层覆盖 bundle 层）：
 
 ```yaml
-- id: dsh-im-bridge
+- id: dsh-qqbot
   config:
     enabled: true
     logLevel: 'info'          # info | warn | error | silent
