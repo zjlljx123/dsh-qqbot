@@ -1,8 +1,11 @@
 // Generate the profile-level cordis.patch.yml for dsh-qqbot:
 // row-patch (not insert) restating the plugin's config with wechat disabled.
 import { readFileSync, writeFileSync } from "node:fs";
+import { join } from "node:path";
+import { homedir } from "node:os";
 
-const prof = process.argv[2] || "C:/Users/ZJL/.dsh/profiles/web";
+const dshHome = process.env.DSH_HOME || join(homedir(), ".dsh");
+const prof = process.argv[2] || join(dshHome, "profiles", "web");
 const src = readFileSync(`${prof}/dsh-qqbot/cordis.patch.yml`, "utf8");
 const lines = src.split(/\r?\n/);
 const idx = lines.findIndex((l) => /^\s+config:\s*$/.test(l));

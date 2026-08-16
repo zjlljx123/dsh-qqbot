@@ -51,12 +51,13 @@
           # 单条消息最大字符数，超出自动分段
           maxMessageChars: 4000
         # Web 控制台（浏览器里启停 NapCat / 扫码）使用的路径配置。
-        # 注意：请把下面路径改成你自己的 NapCat 安装位置与 QQ 号！
+        # 通用默认值留空 = 未配置（聊天功能不受影响，仅控制台不可用）；
+        # 请把下面路径改成你自己的 NapCat 安装位置与 QQ 号。
         napcat:
           # NapCat.Shell 运行目录（含 NapCatWinBootMain.exe / napcat.mjs / config）
-          runDir: 'D:/work/DshWorkspace/NapCat/run'
+          runDir: ''
           # 无安装版 QQ（9.9.22）可执行文件
-          qqExe: 'D:/work/DshWorkspace/QQNT22/Files/QQ.exe'
+          qqExe: ''
           # 注入用 hook DLL；空 = runDir/NapCatWinBootHook.dll
           hookDll: ''
           # OneBot WebSocket 端口（插件 qq.wsUrl 需要与之匹配）
