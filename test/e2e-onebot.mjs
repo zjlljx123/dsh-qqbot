@@ -1,12 +1,12 @@
 /**
- * End-to-end smoke test: boot a DSH web profile with dsh-im-bridge, feed one
+ * End-to-end smoke test: boot a DSH web profile with dsh-qqbot, feed one
  * QQ private message through a mock OneBot v11 WebSocket server, and verify
  * the agent's reply is delivered back to the mock server.
  *
  * Usage:
  *   node test/e2e-onebot.mjs <dshBin> <profile> <port> <mockWsPort> [timeoutMs]
  *
- * Prereqs: the profile must have dsh-im-bridge installed and its profile
+ * Prereqs: the profile must have dsh-qqbot installed and its profile
  * cordis.patch.yml must point qq.wsUrl at ws://127.0.0.1:<mockWsPort>.
  */
 import { WebSocketServer } from "ws";
