@@ -1,7 +1,7 @@
 {
   "name": "dsh-qqbot",
-  "version": "0.2.0",
-  "description": "QQ (OneBot v11 / NapCat) 接入 DeepSeek Harness (DSH) 的聊天机器人插件：双向文本对话 + 文件收发 + Web 控制台（NapCat 启停/扫码）。含完整免责声明，仅供学习交流。",
+  "version": "0.3.0",
+  "description": "QQ (OneBot v11 / NapCat) 接入 DeepSeek Harness (DSH) 的聊天机器人插件：双向文本对话 + 文件收发 + 语音识别 + Web 控制台（NapCat 启停/扫码）。含完整免责声明，仅供学习交流。",
   "type": "module",
   "main": "lib/index.js",
   "exports": {
@@ -40,6 +40,9 @@
     "chatbot",
     "qqbot",
     "bridge",
+    "asr",
+    "语音识别",
+    "whisper",
     "文件",
     "控制台",
     "plugin"

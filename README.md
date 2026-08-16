@@ -9,6 +9,7 @@
 - ✅ **发文件**：让 agent 在回复中写 `/send <绝对路径>`，插件自动通过 QQ 原生接口把文件发给对方
   - `upload_private_file` / `upload_group_file`（失败自动降级为 `file` 消息段）
 - ✅ **收文件**：对方发的图片 / 文件自动下载到该会话工作区的 `inbox/`，agent 可以直接读取
+- ✅ **语音识别（实验性）**：收到的 QQ 语音自动转成文字再交给 agent，agent 能"听懂"语音；识别完成后自动删除本地语音文件，不落盘
 - ✅ **安全启动**：所有桥接连接都是可选的、后台自动重连，**即使 NapCat 没启动，`dsh web` 也照常启动**（再也不会“整个工程起不来”）
 - ✅ 会话/工作区映射持久化，重启 DSH 后对话自动恢复
 - 🎛️ **Web 控制台**：浏览器里直接**启动/停止 NapCat、扫码登录、查看状态、重启 DSH**（右下角 🤖 按钮，或 设置 → QQ 机器人控制台）
@@ -195,6 +196,13 @@ WeChatFerry 是 Windows 下通过 DLL 注入 PC 微信实现收发消息的免�
       blockedChats: []
       maxMessageChars: 2000
       wechatFilesDir: ''       # 微信文件目录，空 = 自动探测
+    asr:
+      # 语音识别（实验性）：把收到的 QQ 语音转成文字再交给 agent。
+      enabled: true
+      python: 'py'             # Python 启动器（需含 faster-whisper + pilk）
+      model: 'small'           # whisper 模型: tiny/base/small/medium
+      lang: 'zh'               # 识别语言
+      timeoutMs: 180000        # 单条语音识别超时
 ```
 
 **群聊回复策略（重要）**：
@@ -286,6 +294,16 @@ wcf 的 `download_attach` 需要微信端已登录且消息较新；老消息可
 
 **Q：回复乱码 / 表情？**
 QQ 的 `face`、`record` 等段只保留 `[表情]` 等占位标记；如需表情渲染可自行扩展。
+
+**Q：语音识别不工作 / 一直识别失败？**
+语音识别为**实验性功能**，需要本机满足：
+1. 安装 Python 依赖：`pip install faster-whisper pilk`（需 Python 3.8+）
+2. 安装 [ffmpeg](https://ffmpeg.org/) 并加入 PATH（QQ 的 `.amr` 语音为 silk 编码，pilk 负责解码）
+3. 首次识别会自动下载 whisper 模型（small 约 460MB），国内网络慢可设环境变量 `HF_ENDPOINT=https://hf-mirror.com`
+4. 语音识别完成后会自动删除本地语音文件；模型常驻后台，重启机器人后自动预热
+
+**Q：语音识别多久生效？**
+机器人启动时自动预热模型，之后每条语音约 1-3 秒出结果；首次启动需等模型加载（约 10-30 秒）。
 
 ---
 
