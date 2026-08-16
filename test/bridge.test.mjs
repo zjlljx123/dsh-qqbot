@@ -17,8 +17,8 @@ function makeFakeQq(overrides = {}) {
     selfId: 10001,
     sendGroup: async (gid, text) => { calls.group.push({ gid, text }); return true; },
     sendPrivate: async (uid, text) => { calls.private.push({ uid, text }); return true; },
-    uploadGroupFile: async (gid, file) => { calls.groupFile.push({ gid, file }); return true; },
-    uploadPrivateFile: async (uid, file) => { calls.privateFile.push({ uid, file }); return true; },
+    uploadGroupFile: async (gid, file, name) => { calls.groupFile.push({ gid, file, name }); return true; },
+    uploadPrivateFile: async (uid, file, name) => { calls.privateFile.push({ uid, file, name }); return true; },
     ...overrides,
   };
   return { qq, calls };
@@ -86,10 +86,11 @@ test("QQ group @ message -> prompt -> reply chunks + /send file upload", async (
     assert.ok(sentText.includes("第二段回复"));
     assert.ok(!sentText.includes("/send"));
 
-    // file uploaded
+    // file uploaded (NapCat requires the `name` param)
     assert.equal(calls.groupFile.length, 1);
     assert.equal(calls.groupFile[0].gid, "777");
     assert.equal(calls.groupFile[0].file, file);
+    assert.equal(calls.groupFile[0].name, "report.txt");
   } finally {
     rmSync(dir, { recursive: true, force: true });
   }

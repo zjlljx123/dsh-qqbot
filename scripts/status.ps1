@@ -1,4 +1,4 @@
-# dsh-im-bridge 一键状态检查
+﻿# dsh-im-bridge 一键状态检查
 # 用法: powershell -ExecutionPolicy Bypass -File scripts/status.ps1
 $ErrorActionPreference = "SilentlyContinue"
 
