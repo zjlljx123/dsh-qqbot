@@ -17,8 +17,36 @@
 
 ---
 
+## 🚀 3 分钟快速开始（新手向）
+
+**前提**：Windows 电脑上已安装并运行 DeepSeek Harness（`dsh web`）。
+
+### 第 1 步：安装插件
+在 DSH 对话里对它说：
+
+> 帮我安装这个插件：`https://github.com/<你的用户名>/dsh-qqbot`
+
+（等价于执行 `dsh plugin --profile web add git+https://github.com/<你的用户名>/dsh-qqbot.git`）然后重启 DSH Web。**页面右下角出现 🤖 按钮 = 安装成功。**
+
+### 第 2 步：准备 QQ 机器人（NapCat + 小号）
+1. 下载 [NapCat](https://github.com/NapNeko/NapCatQQ/releases)（推荐 `NapCat.Shell.Windows.OneKey.zip` 一键版，无需安装 QQ 客户端）
+2. 启动 NapCat，用**机器人 QQ 小号**扫码登录（⚠️ **切勿用主号**）
+3. 在 NapCat 里开启 **WebSocket 服务器**：`127.0.0.1:3001`，消息格式 `array`（默认即为该配置）
+
+### 第 3 步：开聊
+用手机 QQ（大号）把机器人小号**加为好友**，发一条消息，agent 就会回复。试试让它发文件：
+> 创建一个 hello.txt 文件并把它发给我
+
+### 可选：启用控制台「启动/停止 NapCat」
+聊天功能不需要任何配置即可用；若想在 🤖 面板里直接启停 NapCat / 扫码，按[四、配置](#四配置)填入**你自己的** NapCat 路径与 QQ 号即可。
+
+> ⚠️ 完整风险说明请阅读 [DISCLAIMER.md](DISCLAIMER.md)：**第三方非官方协议、存在封号风险、仅限小号、仅供学习交流**。
+
+---
+
 ## 目录
 
+- [3 分钟快速开始](#-3-分钟快速开始新手向)
 - [工作原理](#工作原理)
 - [一、安装](#一安装)
 - [二、准备 QQ 端（NapCat）](#二准备-qq-端napcat)
