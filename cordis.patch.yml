@@ -1,16 +1,20 @@
-# dsh-im-bridge bundle patch (web profile composition layer)
+# dsh-qqbot bundle patch (web profile composition layer)
 #
-# Inserts the IM bridge plugin row into the profile composition tree. The row
-# is FAIL-SAFE BY DESIGN: every bridge connection (NapCat / WeChatFerry) is
-# optional and retried in the background, so the DSH web process always boots
-# even when no IM endpoint is reachable yet.
+# ⚠️ 免责声明：本插件通过第三方协议实现（NapCat / OneBot v11）接入 QQ，
+# 属于腾讯「非官方客户端」范畴，存在账号风控/封号风险，请务必使用小号，
+# 仅供学习交流，禁止用于任何违法违规用途。详见 DISCLAIMER.md。
+#
+# Inserts the QQ bot plugin row into the profile composition tree. The row is
+# FAIL-SAFE BY DESIGN: every bridge connection (NapCat) is optional and
+# retried in the background, so the DSH web process always boots even when no
+# QQ endpoint is reachable yet.
 #
 # To change settings, copy the whole `config:` block below into YOUR profile's
 # cordis.patch.yml (C:\Users\<you>\.dsh\profiles\web\cordis.patch.yml) and edit
 # the values there; the profile layer overrides this bundle layer.
 - insert:
-    - id: dsh-im-bridge
-      name: 'dsh-im-bridge'
+    - id: dsh-qqbot
+      name: 'dsh-qqbot'
       config:
         # Master switch: set false to fully disable the plugin.
         enabled: true
@@ -20,14 +24,14 @@
         stateDir: ''
         # Root dir holding one workspace per chat. Empty = $DSH_HOME/im-bridge/workspaces
         workspaceRoot: ''
-        # Injected into every prompt so the agent knows it is chatting over IM
+        # Injected into every prompt so the agent knows it is chatting over QQ
         # and how to send files (/send <absolute path> on its own line).
         systemHint: >-
-          你正在通过 QQ / 微信聊天工具与用户对话。回复会直接发送给用户，请用用户的语言、
+          你正在通过 QQ 聊天工具与用户对话。回复会直接发送给用户，请用用户的语言、
           简洁、友好、直接地回复，不要输出 Markdown 围栏、也不要输出内部工具调用细节。
           如果需要向用户发送文件（例如你生成或修改的文件、图片、压缩包），请在回复中
           单独一行写：/send <文件的绝对路径>（每行一个文件，路径必须是本机绝对路径）。
-          如果用户发来了文件，文件路径会在消息中给出，你可以用文件工具读取。
+          注意：/send 的路径必须真实存在——不确定时先用文件工具确认，绝对不要编造路径或猜测文件名。如果用户发来了文件，文件路径会在消息中给出，你可以用文件工具读取。
         qq:
           enabled: true
           # NapCat / Lagrange 的 OneBot v11 WebSocket 服务器地址
@@ -46,23 +50,8 @@
           blockedChats: []
           # 单条消息最大字符数，超出自动分段
           maxMessageChars: 4000
-        wechat:
-          enabled: true
-          # WeChatFerry (wcf) RPC 服务地址；接收消息占用 port+1
-          host: '127.0.0.1'
-          port: 10086
-          # 群聊里是否要求被 @ 或命中 triggerKeyword 才回复
-          requireMention: false
-          # 群聊触发关键词；空 = 群聊也全部回复（慎用）
-          triggerKeyword: ''
-          adminOnly: false
-          admins: []
-          allowedChats: []
-          blockedChats: []
-          maxMessageChars: 2000
-          # 微信文件目录（WeChat Files 的父目录）；空 = 自动探测
-          wechatFilesDir: ''
-        # Web 控制台（浏览器里启停 NapCat / 扫码）使用的路径配置
+        # Web 控制台（浏览器里启停 NapCat / 扫码）使用的路径配置。
+        # 注意：请把下面路径改成你自己的 NapCat 安装位置与 QQ 号！
         napcat:
           # NapCat.Shell 运行目录（含 NapCatWinBootMain.exe / napcat.mjs / config）
           runDir: 'D:/work/DshWorkspace/NapCat/run'
@@ -75,4 +64,4 @@
           # NapCat WebUI 端口
           webuiPort: 6099
           # 机器人 QQ 号；填写后启动时用快速登录（-q），空 = 每次扫码
-          account: '3475536025'
+          account: ''

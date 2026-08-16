@@ -1,14 +1,14 @@
-// Generate the profile-level cordis.patch.yml for dsh-im-bridge:
+// Generate the profile-level cordis.patch.yml for dsh-qqbot:
 // row-patch (not insert) restating the plugin's config with wechat disabled.
 import { readFileSync, writeFileSync } from "node:fs";
 
 const prof = process.argv[2] || "C:/Users/ZJL/.dsh/profiles/web";
-const src = readFileSync(`${prof}/dsh-im-bridge/cordis.patch.yml`, "utf8");
+const src = readFileSync(`${prof}/dsh-qqbot/cordis.patch.yml`, "utf8");
 const lines = src.split(/\r?\n/);
 const idx = lines.findIndex((l) => /^\s+config:\s*$/.test(l));
 if (idx < 0) throw new Error("config block not found");
 const cfg = lines.slice(idx + 1).map((l) => (l.startsWith("    ") ? l.slice(4) : l));
-let out = ["- id: dsh-im-bridge", "  config:", ...cfg].join("\n");
+let out = ["- id: dsh-qqbot", "  config:", ...cfg].join("\n");
 // wechat.enabled: true -> false
 out = out.replace(
   /(\n\s*wechat:\n)(\s*)(enabled: true)/,

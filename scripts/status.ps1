@@ -1,4 +1,4 @@
-﻿# dsh-im-bridge 一键状态检查
+﻿# dsh-qqbot 一键状态检查
 # 用法: powershell -ExecutionPolicy Bypass -File scripts/status.ps1
 $ErrorActionPreference = "SilentlyContinue"
 
@@ -13,18 +13,18 @@ function Test-Port([int]$Port) {
 }
 
 Write-Host ""
-Write-Host "========== dsh-im-bridge 状态检查 ==========" -ForegroundColor Cyan
+Write-Host "========== dsh-qqbot 状态检查 ==========" -ForegroundColor Cyan
 
 # 1. 插件安装
 $prof = Join-Path $env:USERPROFILE ".dsh\profiles\web"
-if (Test-Path (Join-Path $prof "dsh-im-bridge\package.json")) {
-    Write-Host "[OK ] 插件已安装: $prof\dsh-im-bridge" -ForegroundColor Green
+if (Test-Path (Join-Path $prof "dsh-qqbot\package.json")) {
+    Write-Host "[OK ] 插件已安装: $prof\dsh-qqbot" -ForegroundColor Green
 } else {
     Write-Host "[!! ] 插件未安装" -ForegroundColor Red
 }
 try {
     $pkg = Get-Content (Join-Path $prof "package.json") -Raw | ConvertFrom-Json
-    if ($pkg.dsh.profile.bundles -contains "dsh-im-bridge") {
+    if ($pkg.dsh.profile.bundles -contains "dsh-qqbot") {
         Write-Host "[OK ] bundle 已注册 (dsh.profile.bundles)" -ForegroundColor Green
     } else {
         Write-Host "[!! ] bundle 未注册" -ForegroundColor Red
@@ -57,6 +57,6 @@ if (Test-Port 10086) {
 
 # 5. 插件运行日志（在 DSH 日志里）
 Write-Host ""
-Write-Host "验证: 重启 DSH Web 后日志出现 [dsh-im-bridge] 即成功；" -ForegroundColor Cyan
+Write-Host "验证: 重启 DSH Web 后日志出现 [dsh-qqbot] 即成功；" -ForegroundColor Cyan
 Write-Host "      在 QQ/微信里对机器人发 /status 可看实时状态" -ForegroundColor Cyan
 Write-Host "============================================" -ForegroundColor Cyan

@@ -1,17 +1,19 @@
-# dsh-im-bridge 🐧💬
+# dsh-qqbot 🤖💬
 
-把 **QQ**（OneBot v11 / [NapCat](https://github.com/NapNeko/NapCatQQ)、Lagrange 等）和**个人微信**（[WeChatFerry](https://github.com/lich0821/WeChatFerry) / wcf）接入 **DeepSeek Harness (DSH)** 的聊天桥接插件，像 OpenClaw / Harness 那样直接和你的 agent 聊天：
+> [!IMPORTANT]
+> **⚠️ 免责声明（必读）**：本插件通过 **第三方非官方协议（NapCat / OneBot v11）** 接入 QQ，存在 **账号风控/封号风险**，**请务必使用小号**，切勿使用主号；仅供个人学习交流，禁止用于任何违法违规用途，后果自负。完整声明见 [DISCLAIMER.md](DISCLAIMER.md)。
+
+把 **QQ**（OneBot v11 / [NapCat](https://github.com/NapNeko/NapCatQQ)、Lagrange 等）接入 **DeepSeek Harness (DSH)** 的聊天机器人插件，像 OpenClaw / Harness 那样直接和你的 agent 聊天：
 
 - ✅ **双向文本对话**：私聊 / 群聊，每个会话对应一个独立的 DSH 会话（带独立工作目录，上下文连续）
-- ✅ **发文件**：让 agent 在回复中写 `/send <绝对路径>`，插件自动通过平台原生接口把文件发给对方
-  - QQ：`upload_private_file` / `upload_group_file`（失败自动降级为 `file` 消息段）
-  - 微信：`WCF_SendFile`
+- ✅ **发文件**：让 agent 在回复中写 `/send <绝对路径>`，插件自动通过 QQ 原生接口把文件发给对方
+  - `upload_private_file` / `upload_group_file`（失败自动降级为 `file` 消息段）
 - ✅ **收文件**：对方发的图片 / 文件自动下载到该会话工作区的 `inbox/`，agent 可以直接读取
-- ✅ **安全启动**：所有桥接连接都是可选的、后台自动重连，**即使 NapCat / wcf 没启动，`dsh web` 也照常启动**（再也不会“整个工程起不来”）
+- ✅ **安全启动**：所有桥接连接都是可选的、后台自动重连，**即使 NapCat 没启动，`dsh web` 也照常启动**（再也不会“整个工程起不来”）
 - ✅ 会话/工作区映射持久化，重启 DSH 后对话自动恢复
-- 🎛️ **Web 控制台**：浏览器里直接**启动/停止 NapCat、扫码登录、查看状态、重启 DSH**（右下角 🤖 按钮，或 设置 → IM 桥接控制台）
+- 🎛️ **Web 控制台**：浏览器里直接**启动/停止 NapCat、扫码登录、查看状态、重启 DSH**（右下角 🤖 按钮，或 设置 → QQ 机器人控制台）
 
-> 参考实现：QQ 侧参考 [constansino/openclaw_qq](https://github.com/constansino/openclaw_qq)（OneBot v11 + NapCat，含文件收发）的成熟做法；微信侧直接对接 WeChatFerry 的 RPC 协议。
+> 参考实现：QQ 侧参考 [constansino/openclaw_qq](https://github.com/constansino/openclaw_qq)（OneBot v11 + NapCat，含文件收发）的成熟做法。
 
 ---
 
@@ -20,7 +22,7 @@
 - [工作原理](#工作原理)
 - [一、安装](#一安装)
 - [二、准备 QQ 端（NapCat）](#二准备-qq-端napcat)
-- [三、准备微信端（WeChatFerry）](#三准备微信端wechatferry)
+- [三、(可选) 微信端支持](#三可选-微信端支持)
 - [四、配置](#四配置)
 - [五、使用](#五使用)
 - [六、常见问题](#六常见问题)
@@ -32,7 +34,7 @@
 
 ```
 QQ 用户 ──OneBot v11 WS──▶ NapCat ──▶ dsh-im-bridge (QQClient)
-微信用户 ──wcf RPC TCP────▶ WeChatFerry ─▶ dsh-im-bridge (WcfClient)
+微信用户 ──wcf RPC TCP────▶ WeChatFerry ─▶ dsh-qqbot (WcfClient，默认关闭)
                                               │
                                     ctx.apiProxy（与 Web UI 同一套 RPC）
                                               │
@@ -103,7 +105,9 @@ dsh plugin --profile web add link:./dsh-im-bridge
 
 ---
 
-## 三、准备微信端（WeChatFerry）
+## 三、(可选) 微信端支持（实验性，默认关闭）
+
+> ⚠️ 个人微信接入风险更高（Hook 注入），默认 wechat.enabled: false。以下内容仅当确有需要时参考；**强烈建议只使用 QQ 通道**。
 
 WeChatFerry 是 Windows 下通过 DLL 注入 PC 微信实现收发消息的免费方案（个人微信）。
 
@@ -252,6 +256,8 @@ QQ 的 `face`、`record` 等段只保留 `[表情]` 等占位标记；如需表�
 ---
 
 ## 免责声明
+
+**完整声明见 [DISCLAIMER.md](DISCLAIMER.md)**。核心要点：
 
 - 个人微信接入（WeChatFerry / 微信 Hook）仅供学习交流，请遵守微信用户协议与当地法律，**禁止用于骚扰、营销、诈骗等用途**；使用微信 Hook 有一定账号风险，后果自负。
 - QQ 机器人请使用合规账号，遵守 QQ 平台规则。

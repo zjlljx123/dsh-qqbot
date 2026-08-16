@@ -1,4 +1,4 @@
-﻿# 重启 DSH Web（加载 dsh-im-bridge 插件）
+# 重启 DSH Web（加载 dsh-qqbot 插件）
 # 用法:
 #   手动: powershell -ExecutionPolicy Bypass -File restart-dsh.ps1
 #   页面按钮调用: powershell ... -File restart-dsh.ps1 -Delay 3
@@ -30,6 +30,7 @@ try {
 finally { $c.Close() }
 
 Write-Host "== 3/3 启动 DSH Web（新窗口）==" -ForegroundColor Cyan
-Start-Process cmd -ArgumentList "/k", "npx -y @deepseek-ai/dsh web" -WorkingDirectory "D:\work\DshWorkspace"
-Write-Host "  新窗口启动中，浏览器打开 http://127.0.0.1:3080"
-Write-Host "  看到 [dsh-im-bridge] QQ 已连接 (ws://127.0.0.1:3001) 即成功" -ForegroundColor Green
+$workDir = if ($env:DSH_WORKSPACE) { $env:DSH_WORKSPACE } else { $env:USERPROFILE }
+Start-Process cmd -ArgumentList "/k", "npx -y @deepseek-ai/dsh web" -WorkingDirectory $workDir
+Write-Host "  新窗口启动中（工作目录 $workDir），浏览器打开 http://127.0.0.1:3080"
+Write-Host "  看到 [dsh-qqbot] QQ 已连接 (ws://127.0.0.1:3001) 即成功" -ForegroundColor Green
