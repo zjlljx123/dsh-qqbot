@@ -62,3 +62,17 @@
           maxMessageChars: 2000
           # 微信文件目录（WeChat Files 的父目录）；空 = 自动探测
           wechatFilesDir: ''
+        # Web 控制台（浏览器里启停 NapCat / 扫码）使用的路径配置
+        napcat:
+          # NapCat.Shell 运行目录（含 NapCatWinBootMain.exe / napcat.mjs / config）
+          runDir: 'D:/work/DshWorkspace/NapCat/run'
+          # 无安装版 QQ（9.9.22）可执行文件
+          qqExe: 'D:/work/DshWorkspace/QQNT22/Files/QQ.exe'
+          # 注入用 hook DLL；空 = runDir/NapCatWinBootHook.dll
+          hookDll: ''
+          # OneBot WebSocket 端口（插件 qq.wsUrl 需要与之匹配）
+          wsPort: 3001
+          # NapCat WebUI 端口
+          webuiPort: 6099
+          # 机器人 QQ 号；填写后启动时用快速登录（-q），空 = 每次扫码
+          account: '3475536025'

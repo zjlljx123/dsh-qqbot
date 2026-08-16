@@ -9,6 +9,7 @@
 - ✅ **收文件**：对方发的图片 / 文件自动下载到该会话工作区的 `inbox/`，agent 可以直接读取
 - ✅ **安全启动**：所有桥接连接都是可选的、后台自动重连，**即使 NapCat / wcf 没启动，`dsh web` 也照常启动**（再也不会“整个工程起不来”）
 - ✅ 会话/工作区映射持久化，重启 DSH 后对话自动恢复
+- 🎛️ **Web 控制台**：浏览器里直接**启动/停止 NapCat、扫码登录、查看状态、重启 DSH**（右下角 🤖 按钮，或 设置 → IM 桥接控制台）
 
 > 参考实现：QQ 侧参考 [constansino/openclaw_qq](https://github.com/constansino/openclaw_qq)（OneBot v11 + NapCat，含文件收发）的成熟做法；微信侧直接对接 WeChatFerry 的 RPC 协议。
 
@@ -170,6 +171,21 @@ WeChatFerry 是 Windows 下通过 DLL 注入 PC 微信实现收发消息的免�
 ---
 
 ## 五、使用
+
+### Web 控制台（启停 QQ 机器人 / 扫码 / 状态）
+
+装好后，DSH 网页右下角有一个 **🤖 悬浮按钮**；点开就是「IM 桥接控制台」，功能：
+
+| 功能 | 说明 |
+|---|---|
+| ▶ 启动 NapCat | 一键拉起 QQ 机器人（免命令行、免管理员） |
+| ■ 停止 NapCat | 停止 QQ / NapCat 进程 |
+| 登录二维码 | 未登录时自动显示，用机器人小号扫码即可 |
+| 状态面板 | NapCat 进程 / 3001 端口 / 登录态 / DSH 插件连接 / 会话数 |
+| NapCat 管理面板 | 打开 NapCat WebUI |
+| ↻ 重启 DSH | 重启 DSH Web（页面短暂断开后自动恢复） |
+
+也可以在 **设置 → IM 桥接控制台** 打开同一面板。控制台的 NapCat 路径在配置的 `napcat` 段（`runDir` / `qqExe` / `account` 等）。
 
 ### 聊天
 
