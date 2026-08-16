@@ -24,9 +24,9 @@
 ### 第 1 步：安装插件
 在 DSH 对话里对它说：
 
-> 帮我安装这个插件：`https://github.com/<你的用户名>/dsh-qqbot`
+> 帮我安装这个插件：`https://github.com/zjlljx123/dsh-qqbot`
 
-（等价于执行 `dsh plugin --profile web add git+https://github.com/<你的用户名>/dsh-qqbot.git`）然后重启 DSH Web。**页面右下角出现 🤖 按钮 = 安装成功。**
+（等价于执行 `dsh plugin --profile web add git+https://github.com/zjlljx123/dsh-qqbot.git`）然后重启 DSH Web。**页面右下角出现 🤖 按钮 = 安装成功。**
 
 ### 第 2 步：准备 QQ 机器人（NapCat + 小号）
 1. 下载 [NapCat](https://github.com/NapNeko/NapCatQQ/releases)（推荐 `NapCat.Shell.Windows.OneKey.zip` 一键版，无需安装 QQ 客户端）
@@ -83,7 +83,7 @@ QQ 用户 ──OneBot v11 WS──▶ NapCat ──▶ dsh-qqbot (QQClient)
 
 把**插件仓库地址**（GitHub 等）交给 DSH，对它说：
 
-> 帮我安装这个插件：`https://github.com/<你的用户名>/dsh-qqbot`
+> 帮我安装这个插件：`https://github.com/zjlljx123/dsh-qqbot`
 
 DSH 会执行 `dsh plugin --profile web add <仓库地址>` 并自动注册（已实测：安装后**聊天功能开箱即用**，只要你自己跑着 NapCat；控制台启停 NapCat 需在配置里填自己的路径，见[四、配置](#四配置)）。
 
